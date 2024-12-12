@@ -1,20 +1,48 @@
-import { useState, useEffect } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import UnAuthenticatedLayout from "./layouts/UnAuthenticatedLayout";
+import AuthenticatedLayout from "./layouts/AuthenticatedLayout";
+import { UNAUTHENTICATED_ROUTES } from "./constants/routes";
+import { AUTHENTICATED_ROUTES } from "./constants/routes";
+import Dashboard from "./pages/authenticated/Dashboard";
+import Login from "./pages/unauthenticated/login";
 
 const App = () => {
-	const [message, setMessage] = useState("");
+	const { isAuthenticated, isLoading } = useAuth0();
 
-	useEffect(() => {
-		fetch("http://localhost:3000/")
-			.then((response) => response.text())
-			.then((data) => setMessage(data))
-			.catch((error) => console.error("Error fetching data:", error));
-	}, []);
+	if (isLoading) {
+		return <div>Loading...</div>;
+	}
 
 	return (
-		<div>
-			<h1>Full Stack App</h1>
-			<p>{message}</p>
-		</div>
+		<BrowserRouter>
+			<div>{isAuthenticated ? "Logged In" : "Logged Out"}</div>
+			<Routes>
+				{/* Authenticated Routes */}
+				<Route
+					path="/app/*"
+					element={
+						isAuthenticated ? (
+							<AuthenticatedLayout />
+						) : (
+							<Navigate to={UNAUTHENTICATED_ROUTES.login} replace />
+						)
+					}
+				>
+					<Route path={AUTHENTICATED_ROUTES.dashboard} element={<Dashboard />} />
+					<Route index element={<Navigate to={AUTHENTICATED_ROUTES.dashboard} replace />} />
+				</Route>
+
+				{/* Unauthenticated Routes */}
+				<Route
+					path="/*"
+					element={!isAuthenticated ? <UnAuthenticatedLayout /> : <Navigate to="/app/" replace />}
+				>
+					<Route path={UNAUTHENTICATED_ROUTES.login} element={<Login />} />
+					<Route index element={<Navigate to={UNAUTHENTICATED_ROUTES.login} replace />} />
+				</Route>
+			</Routes>
+		</BrowserRouter>
 	);
 };
 
