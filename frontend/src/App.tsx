@@ -16,7 +16,6 @@ const App = () => {
 
 	return (
 		<BrowserRouter>
-			<div>{isAuthenticated ? "Logged In" : "Logged Out"}</div>
 			<Routes>
 				{/* Authenticated Routes */}
 				<Route
