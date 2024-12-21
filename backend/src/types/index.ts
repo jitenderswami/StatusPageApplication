@@ -1,14 +1,21 @@
-export interface UserProfile {
-    sub: string;
-    email?: string;
-    name?: string;
-}
+import { AuthResult } from "express-oauth2-jwt-bearer";
 
-// Extend Express Request type to include user
+// interface Auth0JWTClaims {
+//     iss?: string;
+//     sub?: string;
+//     aud?: string[];
+//     iat?: number;
+//     exp?: number;
+//     azp?: string;
+//     scope?: string;
+//     permissions?: string[];
+// }
+
 declare global {
     namespace Express {
         interface Request {
-            user?: UserProfile;
+            // user?: User;
+            auth?: AuthResult
         }
     }
 } 

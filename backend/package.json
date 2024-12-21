@@ -12,7 +12,9 @@
 	"license": "ISC",
 	"description": "",
 	"dependencies": {
+		"@types/auth0": "^3.3.10",
 		"auth0": "^4.15.0",
+		"axios": "^1.7.9",
 		"cors": "^2.8.5",
 		"dotenv": "^16.4.7",
 		"express": "^4.21.2",

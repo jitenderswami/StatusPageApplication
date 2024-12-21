@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import { authenticatedClient } from "../../libs/client";
+import { authenticatedClient } from "../../lib/client";
 import { URLS } from "../../constants/Urls";
 import { AppSidebar } from "./components/SideBar/AppSideBar";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "../../components/ui/sidebar";

@@ -11,7 +11,7 @@ createRoot(document.getElementById("root")!).render(
 			clientId="D16zEdcH18lHSKsreHdgX5n3YwbAMah8"
 			authorizationParams={{
 				redirect_uri: window.location.origin,
-				audience: "https://api.statussphere.com",
+				audience: "https://status-sphere.us.auth0.com/api/v2/",
 				scope: "openid profile email"
 			}}
 		>
