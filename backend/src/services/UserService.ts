@@ -14,7 +14,7 @@ export class UserService {
             // to Auth0's /userinfo endpoint or other protected resources
 
             // Get user profile from our repository (which uses Auth0 Management API)
-            const userProfile = await this.userRepository.findById(userId, accessToken);
+            const userProfile = await this.userRepository.findById(userId);
 
             if (!userProfile) {
                 return null;

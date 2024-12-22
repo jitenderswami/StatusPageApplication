@@ -1,17 +1,53 @@
-import { ManagementClient } from 'auth0';
-import { User, Auth0UserProfile } from '../models/User';
 import axios from 'axios';
+import { User, Auth0UserProfile } from '../models/User';
 
 export class UserRepository {
-    private management: ManagementClient;
+    private readonly auth0Domain = process.env.AUTH0_DOMAIN;
+    private readonly clientId = process.env.AUTH0_CLIENT_ID;
+    private readonly clientSecret = process.env.AUTH0_CLIENT_SECRET;
+    private managementToken: string | null = null;
 
-    constructor() {
-        this.management = new ManagementClient({
-            domain: "status-sphere.us.auth0.com",
-            clientId: "aXEISpA9PaoYtBSmy4OZXopXaN3HdXmE",
-            clientSecret: "hVmDr8fJrLmA1A6SGbuFQMGx3vBWpjWf0IMM_Vc6hJnmrg6YwPFDk95f7OLSLb1A",
-            audience: "https://api.statussphere.com"
-        });
+    private async getManagementToken(): Promise<string> {
+        try {
+            const response = await axios.post(
+                `https://${this.auth0Domain}/oauth/token`,
+                {
+                    client_id: this.clientId,
+                    client_secret: this.clientSecret,
+                    audience: `https://${this.auth0Domain}/api/v2/`,
+                    grant_type: 'client_credentials',
+                    scope: 'read:users read:user_idp_tokens'
+                }
+            );
+            
+            return response.data.access_token;
+        } catch (error) {
+            console.error('Error getting management token:', error);
+            throw error;
+        }
+    }
+
+    async findById(userId: string): Promise<User | null> {
+        try {
+            if (!this.managementToken) {
+                this.managementToken = await this.getManagementToken();
+            }
+
+            const response = await axios.get(
+                `https://${this.auth0Domain}/api/v2/users/${userId}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${this.managementToken}`
+                    }
+                }
+            );
+
+            const auth0User = response.data;
+            return this.mapAuth0UserToUser(auth0User);
+        } catch (error) {
+            console.error('Error fetching user from Auth0:', error);
+            return null;
+        }
     }
 
     mapAuth0UserToUser(auth0User: Auth0UserProfile): User {
@@ -26,28 +62,4 @@ export class UserRepository {
             created_at: new Date(auth0User.created_at)
         };
     }
-
-    async findById(id: string, token: string): Promise<User | null> {
-        try {
-            const user = await this.management.users.get({ id });
-
-            return this.mapAuth0UserToUser(user as unknown as Auth0UserProfile);
-        } catch (error) {
-            console.error('Error fetching user from Auth0:', error);
-            return null;
-        }
-    }
-
-    // async findByEmail(email: string): Promise<User | null> {
-    //     try {
-    //         const users = await this.management.(email);
-    //         if (users && users[0]) {
-    //             return this.mapAuth0UserToUser(users[0] as Auth0UserProfile);
-    //         }
-    //         return null;
-    //     } catch (error) {
-    //         console.error('Error fetching user by email from Auth0:', error);
-    //         return null;
-    //     }
-    // }
 } 

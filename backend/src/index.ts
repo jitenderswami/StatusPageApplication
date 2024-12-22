@@ -3,7 +3,9 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import publicRoutes from './routes/public';
 import protectedRoutes from './routes/protected';
+import userRoutes from './routes/user';
 import { errorHandler } from './middleware/auth';
+import mongoose from 'mongoose';
 
 dotenv.config();
 
@@ -17,6 +19,13 @@ app.use(express.json());
 // Routes
 app.use('/api/public', publicRoutes);
 app.use('/api/protected', protectedRoutes);
+app.use('/api/user', userRoutes);
+
+
+// Connect to MongoDB
+mongoose.connect(process.env.MONGO_URI as string)
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.log(err));
 
 // Error handling
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {

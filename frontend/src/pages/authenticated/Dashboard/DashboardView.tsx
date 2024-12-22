@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { authenticatedClient } from "../../../lib/client";
 import { UserProfile } from "../../../types/UserProfile";
+import { URLS } from "@/constants/Urls";
 
 interface DashboardViewProps {
 	// Add your props here
@@ -15,7 +16,7 @@ const DashboardView: React.FC<DashboardViewProps> = () => {
 	useEffect(() => {
 		const loadUserProfile = async () => {
 			try {
-				const profile = await authenticatedClient.get("/api/protected/profile");
+				const profile = await authenticatedClient.get(URLS.USER_PROFILE);
 				setUserProfile(profile as unknown as UserProfile);
 			} catch (error) {
 				console.error("Error loading user profile:", error);
