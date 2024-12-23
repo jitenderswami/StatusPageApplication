@@ -6,6 +6,8 @@ import protectedRoutes from './routes/protected';
 import userRoutes from './routes/user';
 import { errorHandler } from './middleware/auth';
 import mongoose from 'mongoose';
+import serviceRoutes from './routes/services';
+import incidentRoutes from './routes/incidents';
 
 dotenv.config();
 
@@ -20,6 +22,8 @@ app.use(express.json());
 app.use('/api/public', publicRoutes);
 app.use('/api/protected', protectedRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/services', serviceRoutes);
+app.use('/api/incidents', incidentRoutes);
 
 
 // Connect to MongoDB
