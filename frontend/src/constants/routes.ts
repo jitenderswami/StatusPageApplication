@@ -1,7 +1,8 @@
 export const AUTHENTICATED_ROUTES = {
-
-    dashboard: "dashboard"
-};
+  DASHBOARD: "dashboard",
+  SERVICE_MANAGEMENT: "service-management",
+  // other authenticated routes...
+} as const;
 export const UNAUTHENTICATED_ROUTES = {
-    login: "login"
+  LOGIN: "login",
 };

@@ -2,17 +2,26 @@
 
 # Check if a component name was provided
 if [ $# -eq 0 ]; then
-    echo "Usage: $0 <ComponentName> [directory]"
-    echo "Example: $0 UserProfile pages/loggedInLayout"
-    echo "If no directory is specified, the component will be created in ./src"
+    echo "Usage: $0 <ComponentName> [subdirectory]"
+    echo "Example: $0 UserProfile components"
+    echo "Component will be created in ./src/[subdirectory]"
+    echo "If no subdirectory is specified, component will be created directly in ./src"
     exit 1
 fi
 
 # Get the component name from the first argument
 COMPONENT_NAME=$1
 
-# Get the directory path (default to ./src if not provided)
-DIR_PATH=${2:-src}
+# Get the subdirectory (if provided), otherwise use empty string
+SUB_DIR=${2:-""}
+
+# Construct the full directory path
+# If SUB_DIR is empty, this will just be "src"
+# If SUB_DIR is provided, this will be "src/subdirectory"
+DIR_PATH="src"
+if [ ! -z "$SUB_DIR" ]; then
+    DIR_PATH="src/$SUB_DIR"
+fi
 
 # Create the component directory
 mkdir -p "$DIR_PATH/$COMPONENT_NAME"
