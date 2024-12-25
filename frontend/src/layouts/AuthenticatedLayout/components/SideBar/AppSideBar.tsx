@@ -7,6 +7,7 @@ import {
   Search,
   Settings,
   ServerCogIcon,
+  AlertCircle,
 } from "lucide-react";
 import UserProfileMenu from "@/components/UserProfileMenu";
 import {
@@ -39,19 +40,9 @@ const items = [
     icon: ServerCogIcon,
   },
   {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Search",
-    url: "#",
-    icon: Search,
-  },
-  {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
+    title: "Incidents",
+    url: `/app/${AUTHENTICATED_ROUTES.INCIDENTS}`,
+    icon: AlertCircle,
   },
 ];
 
@@ -78,7 +69,6 @@ export function AppSidebar() {
       )}
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (

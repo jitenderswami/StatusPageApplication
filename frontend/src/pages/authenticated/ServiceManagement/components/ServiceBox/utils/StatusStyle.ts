@@ -1,4 +1,4 @@
-import { ServiceStatus } from "@/types/Services";
+import { ServiceStatus } from "@/types/ServiceTypes";
 
 export const getStatusStyle = (status: ServiceStatus) => {
   switch (status) {

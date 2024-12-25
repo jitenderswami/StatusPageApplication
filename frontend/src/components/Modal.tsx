@@ -1,7 +1,13 @@
 import React from "react";
-import { Dialog, DialogContent, DialogClose } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogClose,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 interface ModalProps {
   open: boolean;
@@ -12,8 +18,12 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({ open, onClose, children }) => {
   return (
     <Dialog open={open} onOpenChange={onClose}>
+      <VisuallyHidden asChild>
+        <DialogTitle>Modal</DialogTitle>
+      </VisuallyHidden>
       <DialogContent
         className={cn(
+          "max-h-[90vh] overflow-y-auto",
           "fixed sm:max-w-[425px]",
           // Mobile styles (default)
           "bottom-0 top-auto translate-y-0 rounded-b-none",

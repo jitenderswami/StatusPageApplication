@@ -24,7 +24,7 @@ import {
   CreateServiceDTO,
   ServiceStatus,
   UpdateServiceDTO,
-} from "@/types/Services";
+} from "@/types/ServiceTypes";
 
 const formSchema = z.object({
   name: z.string().min(2, {

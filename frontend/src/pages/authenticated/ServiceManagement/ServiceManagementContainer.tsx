@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import ServiceManagementView from "./ServiceManagementView";
 import Modal from "@/components/Modal";
 import ServiceEditor from "./components/ServiceEditor";
-import { CreateServiceDTO, Service, UpdateServiceDTO } from "@/types/Services";
+import {
+  CreateServiceDTO,
+  Service,
+  UpdateServiceDTO,
+} from "@/types/ServiceTypes";
 
 const ServiceManagementContainer: React.FC = () => {
   const [isServiceEditorOpen, setIsServiceEditorOpen] = useState(false);

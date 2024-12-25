@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 import { MOCK_SERVICES } from "./constants/MockServices";
 import ServiceBox from "./components/ServiceBox";
-import { Service } from "@/types/Services";
+import { Service } from "@/types/ServiceTypes";
 
 interface ServiceManagementViewProps {
   onAddService: () => void;

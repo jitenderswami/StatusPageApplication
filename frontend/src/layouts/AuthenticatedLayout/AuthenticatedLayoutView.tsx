@@ -15,6 +15,7 @@ const getPageTitle = (pathname: string): string => {
   const routes: Record<string, string> = {
     [AUTHENTICATED_ROUTES.SERVICE_MANAGEMENT]: "Service Management",
     [AUTHENTICATED_ROUTES.DASHBOARD]: "Dashboard",
+    [AUTHENTICATED_ROUTES.INCIDENTS]: "Incidents",
     // Add more mappings here as needed
   };
 
@@ -47,7 +48,7 @@ const AuthenticatedLayoutView: React.FC<AuthenticatedLayoutViewProps> = () => {
             </div>
           )}
           <div className="p-6 border-b">
-            <h1 className="text-2xl font-semibold text-foreground/90">
+            <h1 className="text-3xl font-bold tracking-tight text-foreground/90">
               {pageTitle}
             </h1>
           </div>

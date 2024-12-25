@@ -1,6 +1,6 @@
 import React from "react";
 import ServiceBoxView from "./ServiceBoxView";
-import { Service } from "@/types/Services";
+import { Service } from "@/types/ServiceTypes";
 
 interface ServiceBoxContainerProps {
   service: Service;

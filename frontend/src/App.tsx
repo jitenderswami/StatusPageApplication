@@ -7,6 +7,8 @@ import Dashboard from "./pages/authenticated/Dashboard";
 import Login from "./pages/unauthenticated/login";
 import ServiceManagement from "./pages/authenticated/ServiceManagement";
 import { useAuthStatus } from "./hooks/useAuthStatus";
+import Incidents from "./pages/authenticated/Incidents";
+import IncidentUpdate from "./pages/authenticated/IncidentUpdate";
 
 const App = () => {
   const { isAuthenticated, isLoading } = useAuthStatus();
@@ -40,6 +42,14 @@ const App = () => {
           <Route
             path={AUTHENTICATED_ROUTES.SERVICE_MANAGEMENT}
             element={<ServiceManagement />}
+          />
+          <Route
+            path={AUTHENTICATED_ROUTES.INCIDENTS}
+            element={<Incidents />}
+          />
+          <Route
+            path={AUTHENTICATED_ROUTES.INCIDENT_DETAILS}
+            element={<IncidentUpdate />}
           />
         </Route>
 

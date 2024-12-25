@@ -1,5 +1,5 @@
 import { ServiceEditorView } from "./ServiceEditorView";
-import { CreateServiceDTO, UpdateServiceDTO } from "@/types/Services";
+import { CreateServiceDTO, UpdateServiceDTO } from "@/types/ServiceTypes";
 
 type ServiceEditorContainerProps = {
   onSubmit: (data: CreateServiceDTO | UpdateServiceDTO) => Promise<void>;
