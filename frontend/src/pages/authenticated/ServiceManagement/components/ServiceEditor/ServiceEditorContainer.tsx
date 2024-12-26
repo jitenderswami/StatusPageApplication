@@ -2,7 +2,7 @@ import { ServiceEditorView } from "./ServiceEditorView";
 import { CreateServiceDTO, UpdateServiceDTO } from "@/types/ServiceTypes";
 
 type ServiceEditorContainerProps = {
-  onSubmit: (data: CreateServiceDTO | UpdateServiceDTO) => Promise<void>;
+  onSubmit: (data: CreateServiceDTO | UpdateServiceDTO) => void;
   initialData: CreateServiceDTO | UpdateServiceDTO | null;
   isLoading?: boolean;
 };

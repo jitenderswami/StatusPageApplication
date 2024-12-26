@@ -1,29 +1,60 @@
 import React from "react";
 import IncidentUpdaterView from "./IncidentUpdaterView";
 import { FormData } from "./IncidentUpdaterView";
-import { CreateIncidentUpdateDTO, IncidentStatus } from "@/types/IncidentTypes";
+import {
+  CreateIncidentUpdateDTO,
+  Incident,
+  IncidentStatus,
+} from "@/types/IncidentTypes";
+import { createIncidentUpdate } from "@/services/incidentService";
+import { useToast } from "@/hooks/use-toast";
+import { queryClient } from "@/lib/queryClient";
 
 interface IncidentUpdaterContainerProps {
-  currentStatus: IncidentStatus;
+  incident: Incident;
   onClose: () => void;
 }
 
 const IncidentUpdaterContainer: React.FC<IncidentUpdaterContainerProps> = ({
-  currentStatus,
+  incident,
   onClose,
 }) => {
-  const handleSubmit = (data: FormData) => {
+  const { toast } = useToast();
+  const handleSubmit = async (data: FormData) => {
     const updateData: CreateIncidentUpdateDTO = {
       message: data.message,
       status: data.status,
     };
-    console.log("Creating update:", updateData);
-    onClose();
+    try {
+      await createIncidentUpdate(incident.id, updateData);
+      toast({
+        title: "Incident update created",
+        description: "The incident update has been created successfully",
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["updates", incident.id],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["incident", incident.id],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["incidents"],
+      });
+      onClose();
+    } catch (error: any) {
+      toast({
+        title: "Error creating incident update",
+        description:
+          error?.response?.data?.message ||
+          "An error occurred while creating the incident update",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
     <IncidentUpdaterView
-      currentStatus={currentStatus}
+      currentStatus={incident.status}
       onSubmit={handleSubmit}
       onCancel={onClose}
     />

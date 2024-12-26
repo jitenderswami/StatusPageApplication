@@ -28,3 +28,15 @@ export interface UpdateServiceDTO {
   description?: string;
   status?: ServiceStatus;
 }
+
+export const parseService = (rawService: any): Service => {
+  return {
+    ...rawService,
+    createdAt: new Date(rawService.createdAt),
+    updatedAt: new Date(rawService.updatedAt),
+  };
+};
+
+export const parseServices = (rawServices: any[]): Service[] => {
+  return rawServices.map(parseService);
+};

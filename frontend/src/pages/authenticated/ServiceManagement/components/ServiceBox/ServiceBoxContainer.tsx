@@ -1,6 +1,10 @@
 import React from "react";
 import ServiceBoxView from "./ServiceBoxView";
 import { Service } from "@/types/ServiceTypes";
+import { URLS } from "@/constants/Urls";
+import { authenticatedClient } from "@/lib/client";
+import { queryClient } from "@/lib/queryClient";
+import { toast, useToast } from "@/hooks/use-toast";
 
 interface ServiceBoxContainerProps {
   service: Service;
@@ -11,12 +15,18 @@ const ServiceBoxContainer: React.FC<ServiceBoxContainerProps> = ({
   service,
   onEdit,
 }) => {
+  const { toast } = useToast();
   const handleEdit = () => {
-    console.log("Edit");
     onEdit(service);
   };
-  const handleDelete = () => {
-    console.log("Delete");
+  const handleDelete = async () => {
+    await authenticatedClient.delete(
+      URLS.CRUD_SERVICE.replace(":id", service.id)
+    );
+    queryClient.invalidateQueries({ queryKey: ["services"] });
+    toast({
+      title: "Service deleted successfully",
+    });
   };
   return (
     <ServiceBoxView

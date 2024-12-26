@@ -46,11 +46,13 @@ export type FormData = z.infer<typeof formSchema>;
 interface IncidentCreatorViewProps {
   onSubmit: (data: FormData) => void;
   onCancel: () => void;
+  services: Service[];
 }
 
 const IncidentCreatorView: React.FC<IncidentCreatorViewProps> = ({
   onSubmit,
   onCancel,
+  services,
 }) => {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -70,11 +72,11 @@ const IncidentCreatorView: React.FC<IncidentCreatorViewProps> = ({
 
   const serviceOptions = React.useMemo(
     () =>
-      MOCK_SERVICES.map((service) => ({
+      services.map((service) => ({
         id: service.id,
         label: service.name,
       })),
-    []
+    [services]
   );
 
   return (

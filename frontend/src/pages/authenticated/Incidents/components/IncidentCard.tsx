@@ -14,12 +14,12 @@ const IncidentCard: React.FC<IncidentCardProps> = ({ incident }) => {
   const navigate = useNavigate();
 
   const handleNavigateToDetails = () => {
-    navigate(
-      `/app/${AUTHENTICATED_ROUTES.INCIDENT_DETAILS.replace(
-        ":id",
-        incident.id
-      )}`
-    );
+    const incidentPath = `/app/${AUTHENTICATED_ROUTES.INCIDENT_DETAILS.replace(
+      ":id",
+      incident.id
+    )}`;
+    // console.log(incidentPath);
+    navigate(String(incident.id));
   };
 
   return (

@@ -16,8 +16,8 @@ const DashboardView: React.FC<DashboardViewProps> = () => {
   useEffect(() => {
     const loadUserProfile = async () => {
       try {
-        const profile = await authenticatedClient.get(URLS.USER_PROFILE);
-        setUserProfile(profile as unknown as UserProfile);
+        // const profile = await authenticatedClient.get(URLS.USER_PROFILE);
+        // setUserProfile(profile as unknown as UserProfile);
       } catch (error) {
         console.error("Error loading user profile:", error);
         setError("Failed to load user profile");

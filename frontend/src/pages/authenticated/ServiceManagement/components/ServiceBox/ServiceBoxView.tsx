@@ -18,7 +18,7 @@ const ServiceBoxView: React.FC<ServiceBoxViewProps> = ({
   const statusStyle = getStatusStyle(service.status);
 
   return (
-    <div className="flex flex-col w-full h-full p-4 bg-gray-100 rounded-md shadow-md hover:shadow-lg transition-all duration-300">
+    <div className="flex flex-col w-full h-fit md:h-[100px] p-4 bg-gray-100 rounded-md shadow-md hover:shadow-lg transition-all duration-300">
       <div className="flex flex-col sm:flex-row w-full h-full gap-4 sm:gap-0 sm:justify-between sm:items-center">
         <div className="flex flex-col w-full">
           <h3 className="text-lg font-bold">{service.name}</h3>

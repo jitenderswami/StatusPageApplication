@@ -9,6 +9,9 @@ import ServiceManagement from "./pages/authenticated/ServiceManagement";
 import { useAuthStatus } from "./hooks/useAuthStatus";
 import Incidents from "./pages/authenticated/Incidents";
 import IncidentUpdate from "./pages/authenticated/IncidentUpdate";
+import { QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+import { queryClient } from "./lib/queryClient";
 
 const App = () => {
   const { isAuthenticated, isLoading } = useAuthStatus();
@@ -18,60 +21,63 @@ const App = () => {
   }
 
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Authenticated Routes */}
-        <Route
-          path="/app/*"
-          element={
-            isAuthenticated ? (
-              <AuthenticatedLayout />
-            ) : (
-              <Navigate to={UNAUTHENTICATED_ROUTES.LOGIN} replace />
-            )
-          }
-        >
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Routes>
+          {/* Authenticated Routes */}
           <Route
-            index
-            element={<Navigate to={AUTHENTICATED_ROUTES.DASHBOARD} replace />}
-          />
-          <Route
-            path={AUTHENTICATED_ROUTES.DASHBOARD}
-            element={<Dashboard />}
-          />
-          <Route
-            path={AUTHENTICATED_ROUTES.SERVICE_MANAGEMENT}
-            element={<ServiceManagement />}
-          />
-          <Route
-            path={AUTHENTICATED_ROUTES.INCIDENTS}
-            element={<Incidents />}
-          />
-          <Route
-            path={AUTHENTICATED_ROUTES.INCIDENT_DETAILS}
-            element={<IncidentUpdate />}
-          />
-        </Route>
+            path="/app/*"
+            element={
+              isAuthenticated ? (
+                <AuthenticatedLayout />
+              ) : (
+                <Navigate to={UNAUTHENTICATED_ROUTES.LOGIN} replace />
+              )
+            }
+          >
+            <Route
+              index
+              element={<Navigate to={AUTHENTICATED_ROUTES.DASHBOARD} replace />}
+            />
+            <Route
+              path={AUTHENTICATED_ROUTES.DASHBOARD}
+              element={<Dashboard />}
+            />
+            <Route
+              path={AUTHENTICATED_ROUTES.SERVICE_MANAGEMENT}
+              element={<ServiceManagement />}
+            />
+            <Route
+              path={AUTHENTICATED_ROUTES.INCIDENTS}
+              element={<Incidents />}
+            />
+            <Route
+              path={AUTHENTICATED_ROUTES.INCIDENT_DETAILS}
+              element={<IncidentUpdate />}
+            />
+          </Route>
 
-        {/* Unauthenticated Routes */}
-        <Route
-          path="/*"
-          element={
-            !isAuthenticated ? (
-              <UnAuthenticatedLayout />
-            ) : (
-              <Navigate to="/app/" replace />
-            )
-          }
-        >
-          <Route path={UNAUTHENTICATED_ROUTES.LOGIN} element={<Login />} />
+          {/* Unauthenticated Routes */}
           <Route
-            index
-            element={<Navigate to={UNAUTHENTICATED_ROUTES.LOGIN} replace />}
-          />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+            path="/*"
+            element={
+              !isAuthenticated ? (
+                <UnAuthenticatedLayout />
+              ) : (
+                <Navigate to="/app/" replace />
+              )
+            }
+          >
+            <Route path={UNAUTHENTICATED_ROUTES.LOGIN} element={<Login />} />
+            <Route
+              index
+              element={<Navigate to={UNAUTHENTICATED_ROUTES.LOGIN} replace />}
+            />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 };
 

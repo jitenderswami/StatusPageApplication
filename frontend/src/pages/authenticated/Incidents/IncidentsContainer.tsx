@@ -3,9 +3,16 @@ import IncidentsView from "./IncidentsView";
 import { MOCK_INCIDENTS } from "./constants/MockIncidents";
 import Modal from "@/components/Modal";
 import IncidentCreator from "./components/IncidentCreator";
+import { useQuery } from "react-query";
+import { fetchIncidents } from "@/services/incidentService";
 
 const IncidentsContainer: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { data: incidents, isLoading: isLoadingIncidents } = useQuery({
+    queryKey: ["incidents"],
+    queryFn: fetchIncidents,
+  });
 
   const handleCreateIncident = () => {
     setIsModalOpen(true);
@@ -14,7 +21,8 @@ const IncidentsContainer: React.FC = () => {
   return (
     <>
       <IncidentsView
-        incidents={MOCK_INCIDENTS}
+        incidents={incidents || []}
+        isLoading={isLoadingIncidents}
         onCreateIncident={handleCreateIncident}
       />
       <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
