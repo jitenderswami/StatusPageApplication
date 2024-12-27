@@ -1,5 +1,7 @@
 # Status Sphere
 
+**App running on**: https://status-page-application-fe.vercel.app/login 
+
 Status Sphere is a modern status page system that allows organizations to communicate real-time service status and incidents to their users. It provides a simple yet powerful way to manage and display service health, incidents, and maintenance updates.
 
 ## Key Features
