@@ -1,5 +1,5 @@
 import React from "react";
-import { Service, ServiceStatus } from "@/types/ServiceTypes";
+import { Service } from "@/types/ServiceTypes";
 import { Button } from "@/components/ui/button";
 import { PencilIcon, TrashIcon } from "lucide-react";
 import { getStatusStyle } from "./utils/StatusStyle";
