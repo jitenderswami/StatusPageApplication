@@ -4,7 +4,7 @@ import { Service } from "@/types/ServiceTypes";
 import { URLS } from "@/constants/Urls";
 import { authenticatedClient } from "@/lib/client";
 import { queryClient } from "@/lib/queryClient";
-import { toast, useToast } from "@/hooks/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 interface ServiceBoxContainerProps {
   service: Service;

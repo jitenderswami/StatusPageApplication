@@ -4,7 +4,6 @@ import { Incident } from "@/types/IncidentTypes";
 import { Button } from "@/components/ui/button";
 import { MessageSquare } from "lucide-react";
 import IncidentStatusBadge from "./IncidentStatusBadge";
-import { AUTHENTICATED_ROUTES } from "@/constants/routes";
 
 interface IncidentCardProps {
   incident: Incident;
@@ -14,11 +13,6 @@ const IncidentCard: React.FC<IncidentCardProps> = ({ incident }) => {
   const navigate = useNavigate();
 
   const handleNavigateToDetails = () => {
-    const incidentPath = `/app/${AUTHENTICATED_ROUTES.INCIDENT_DETAILS.replace(
-      ":id",
-      incident.id
-    )}`;
-    // console.log(incidentPath);
     navigate(String(incident.id));
   };
 

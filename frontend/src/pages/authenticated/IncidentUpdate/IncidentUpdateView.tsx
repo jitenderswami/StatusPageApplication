@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { MoveLeftIcon, Plus } from "lucide-react";
 import { Separator } from "@/components/ui/separator";

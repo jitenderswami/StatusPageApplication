@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams, Navigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import IncidentUpdateView from "./IncidentUpdateView";
 import Modal from "@/components/Modal";
 import IncidentUpdater from "./components/IncidentUpdater";
@@ -8,7 +8,7 @@ import {
   fetchIncident,
   fetchIncidentUpdates,
 } from "@/services/incidentService";
-import { Incident, IncidentStatus } from "@/types/IncidentTypes";
+import { Incident } from "@/types/IncidentTypes";
 
 const IncidentUpdateContainer: React.FC = () => {
   const { id: incidentId } = useParams<{ id: string }>();

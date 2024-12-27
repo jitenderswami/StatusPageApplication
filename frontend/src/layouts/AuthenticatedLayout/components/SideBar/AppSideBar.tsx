@@ -1,11 +1,7 @@
 import {
   ArrowLeft,
   ArrowRight,
-  Calendar,
   Home,
-  Inbox,
-  Search,
-  Settings,
   ServerCogIcon,
   AlertCircle,
 } from "lucide-react";
@@ -16,7 +12,6 @@ import {
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,

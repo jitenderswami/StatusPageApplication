@@ -20,13 +20,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
-  CreateIncidentDTO,
   IncidentType,
   IncidentStatus,
   IncidentImpact,
 } from "@/types/IncidentTypes";
 import { Service } from "@/types/ServiceTypes";
-import { MOCK_SERVICES } from "../../../ServiceManagement/constants/MockServices";
 import { MultiSelect } from "@/components/ui/multi-select";
 
 export const formSchema = z.object({

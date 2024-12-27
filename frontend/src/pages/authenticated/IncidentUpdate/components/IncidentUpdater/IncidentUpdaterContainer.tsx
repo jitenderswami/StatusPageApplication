@@ -1,11 +1,7 @@
 import React from "react";
 import IncidentUpdaterView from "./IncidentUpdaterView";
 import { FormData } from "./IncidentUpdaterView";
-import {
-  CreateIncidentUpdateDTO,
-  Incident,
-  IncidentStatus,
-} from "@/types/IncidentTypes";
+import { CreateIncidentUpdateDTO, Incident } from "@/types/IncidentTypes";
 import { createIncidentUpdate } from "@/services/incidentService";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient } from "@/lib/queryClient";

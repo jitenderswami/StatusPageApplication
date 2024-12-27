@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import IncidentsView from "./IncidentsView";
-import { MOCK_INCIDENTS } from "./constants/MockIncidents";
 import Modal from "@/components/Modal";
 import IncidentCreator from "./components/IncidentCreator";
 import { useQuery } from "react-query";
