@@ -3,8 +3,9 @@ export const AUTHENTICATED_ROUTES = {
   SERVICE_MANAGEMENT: "service-management",
   INCIDENTS: "incidents",
   INCIDENT_DETAILS: "incidents/:id",
-  // other authenticated routes...
 } as const;
+
 export const UNAUTHENTICATED_ROUTES = {
-  LOGIN: "login",
-};
+  LOGIN: "/login",
+  PUBLIC_STATUS_PAGE: "/status/:userId",
+} as const;

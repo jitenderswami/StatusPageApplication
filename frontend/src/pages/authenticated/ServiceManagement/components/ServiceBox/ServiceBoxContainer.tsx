@@ -24,6 +24,7 @@ const ServiceBoxContainer: React.FC<ServiceBoxContainerProps> = ({
       URLS.CRUD_SERVICE.replace(":id", service.id)
     );
     queryClient.invalidateQueries({ queryKey: ["services"] });
+    queryClient.invalidateQueries({ queryKey: ["dashboard"] });
     toast({
       title: "Service deleted successfully",
     });

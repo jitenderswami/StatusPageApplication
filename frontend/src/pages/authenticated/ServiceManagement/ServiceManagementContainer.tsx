@@ -40,6 +40,7 @@ const ServiceManagementContainer: React.FC = () => {
         description: "Service created successfully",
       });
       queryClient.invalidateQueries({ queryKey: ["services"] });
+      queryClient.invalidateQueries({ queryKey: ["dashboard"] });
     } catch (error) {
       toast({
         title: "Error",
@@ -61,6 +62,7 @@ const ServiceManagementContainer: React.FC = () => {
         description: "Service updated successfully",
       });
       queryClient.invalidateQueries({ queryKey: ["services"] });
+      queryClient.invalidateQueries({ queryKey: ["dashboard"] });
     } catch (error) {
       toast({
         title: "Error",

@@ -39,6 +39,7 @@ const IncidentCreatorContainer: React.FC<IncidentCreatorContainerProps> = ({
     try {
       await createIncident(formattedData);
       queryClient.invalidateQueries({ queryKey: ["incidents"] });
+      queryClient.invalidateQueries({ queryKey: ["dashboard"] });
       toast({
         title: "Success",
         description: "Incident created successfully",

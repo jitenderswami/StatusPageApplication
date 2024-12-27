@@ -7,4 +7,6 @@ export const URLS = {
   BASE_INCIDENTS: "/api/incidents",
   FETCH_INCIDENT: "/api/incidents/%ID%",
   BASE_INCIDENT_UPDATES: "/api/incidents/%ID%/updates",
+  BASE_DASHBOARD: "/api/dashboard",
+  PUBLIC_STATUS_PAGE: "/api/public/status/:userId",
 };

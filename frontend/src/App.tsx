@@ -1,32 +1,50 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import UnAuthenticatedLayout from "./layouts/UnAuthenticatedLayout";
 import AuthenticatedLayout from "./layouts/AuthenticatedLayout";
-import { UNAUTHENTICATED_ROUTES } from "./constants/routes";
-import { AUTHENTICATED_ROUTES } from "./constants/routes";
+import {
+  UNAUTHENTICATED_ROUTES,
+  AUTHENTICATED_ROUTES,
+} from "./constants/routes";
 import Dashboard from "./pages/authenticated/Dashboard";
 import Login from "./pages/unauthenticated/login";
 import ServiceManagement from "./pages/authenticated/ServiceManagement";
-import { useAuthStatus } from "./hooks/useAuthStatus";
 import Incidents from "./pages/authenticated/Incidents";
 import IncidentUpdate from "./pages/authenticated/IncidentUpdate";
+import PublicStatusPage from "./pages/unauthenticated/PublicStatusPage";
 import { QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { queryClient } from "./lib/queryClient";
+import CircularLoader from "./components/CircularLoader";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const App = () => {
-  const { isAuthenticated, isLoading } = useAuthStatus();
+  const { isAuthenticated, isLoading } = useAuth0();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-full pt-[20%]">
+        <CircularLoader />
+      </div>
+    );
   }
 
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Routes>
+          {/* Root redirect */}
+          <Route
+            path="/"
+            element={
+              <Navigate
+                to={isAuthenticated ? "/app" : UNAUTHENTICATED_ROUTES.LOGIN}
+                replace
+              />
+            }
+          />
+
           {/* Authenticated Routes */}
           <Route
-            path="/app/*"
+            path="/app"
             element={
               isAuthenticated ? (
                 <AuthenticatedLayout />
@@ -35,10 +53,7 @@ const App = () => {
               )
             }
           >
-            <Route
-              index
-              element={<Navigate to={AUTHENTICATED_ROUTES.DASHBOARD} replace />}
-            />
+            <Route index element={<Dashboard />} />
             <Route
               path={AUTHENTICATED_ROUTES.DASHBOARD}
               element={<Dashboard />}
@@ -57,23 +72,30 @@ const App = () => {
             />
           </Route>
 
-          {/* Unauthenticated Routes */}
+          {/* Login Route */}
           <Route
-            path="/*"
+            path={UNAUTHENTICATED_ROUTES.LOGIN}
             element={
-              !isAuthenticated ? (
-                <UnAuthenticatedLayout />
-              ) : (
-                <Navigate to="/app/" replace />
-              )
+              !isAuthenticated ? <Login /> : <Navigate to="/app" replace />
             }
-          >
-            <Route path={UNAUTHENTICATED_ROUTES.LOGIN} element={<Login />} />
-            <Route
-              index
-              element={<Navigate to={UNAUTHENTICATED_ROUTES.LOGIN} replace />}
-            />
-          </Route>
+          />
+
+          {/* Public Status Page */}
+          <Route
+            path={UNAUTHENTICATED_ROUTES.PUBLIC_STATUS_PAGE}
+            element={<PublicStatusPage />}
+          />
+
+          {/* Catch all route */}
+          <Route
+            path="*"
+            element={
+              <Navigate
+                to={isAuthenticated ? "/app" : UNAUTHENTICATED_ROUTES.LOGIN}
+                replace
+              />
+            }
+          />
         </Routes>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />

@@ -40,6 +40,9 @@ const IncidentUpdaterContainer: React.FC<IncidentUpdaterContainerProps> = ({
       queryClient.invalidateQueries({
         queryKey: ["incidents"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["dashboard"],
+      });
       onClose();
     } catch (error: any) {
       toast({
